@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #faa499;
+            background-image: linear-gradient(319deg, #faa499 0%, #f7dd85 37%, #ffc55c 100%);
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: rgb(0, 0, 0); font-size: 40px;">Random Password Generator</h1>
+        <label for="passwordLength" style="font-size: 36px;">Password Length:</label>
+        <input type="number" id="passwordLength" min="1" style="font-size: 26px;" placeholder="Enter length" />
+        <button onclick="generatePassword()">Generate Password</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function generatePassword() {
+            const passwordLengthInput = document.getElementById('passwordLength');
+            const resultDiv = document.getElementById('result');
+            
+            const passwordLength = parseInt(passwordLengthInput.value);
+
+            if (isNaN(passwordLength) || passwordLength <= 0) {
+                alert('Please enter a valid password length.');
+                return;
+            }
+
+            const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            const numberChars = "0123456789";
+            const symbolChars = "!@#$%^&*()-_=+";
+
+            const allChars = uppercaseChars + lowercaseChars + numberChars + symbolChars;
+
+            let password = "";
+            for (let i = 0; i < passwordLength; i++) {
+                const randomIndex = Math.floor(Math.random() * allChars.length);
+                password += allChars.charAt(randomIndex);
+            }
+
+            resultDiv.textContent = `Generated Password: ${password}`;
+        }
+    </script>
+</body>
+</html>
